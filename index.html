@@ -49,5 +49,38 @@
     getFact();
 </script>
 
+    <script>
+    async function getFact() {
+        const url = "https://raw.githubusercontent.com/<your-username>/fact-of-the-day/main/facts.json";
+        
+        try {
+            console.log("Fetching from:", url);  // Check the URL in the console
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                console.error("Failed to fetch: ", response.status, response.statusText);
+                throw new Error('Failed to fetch');
+            }
+
+            const data = await response.json();
+
+            console.log("Fetched data:", data);  // Verify the data structure
+
+            const facts = data.facts;
+            const today = new Date();
+            const index = today.getDate() % facts.length;  
+            
+            document.getElementById('fact').innerText = facts[index];
+        } catch (error) {
+            console.error('Error fetching facts:', error);
+            document.getElementById('fact').innerText = `Error loading fact: ${error.message}`;
+        }
+    }
+
+    getFact();
+</script>
+
+
 </body>
 </html>
