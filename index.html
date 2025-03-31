@@ -5,34 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fact of the Day</title>
     <style>
+        /* Styling for body */
         body {
-            font-family: Arial, sans-serif;
-            font-size: 20px;
-            padding: 20px;
-            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #74EBD5, #ACB6E5);
             color: #333;
-            text-align: center;
-            line-height: 1.6;
         }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Styling for the fact container */
         #fact {
-            margin: 30px 0;
-            padding: 20px;
+            max-width: 90%;
+            width: 600px;
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            font-size: 22px;
+            line-height: 1.8;
+            transition: transform 0.3s;
+        }
+
+        #fact:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Button for refresh */
+        .refresh-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #45a049;
+        }
+
+        /* Footer styling */
+        footer {
+            margin-top: 40px;
+            font-size: 16px;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            #fact {
+                font-size: 18px;
+                padding: 20px;
+                width: 90%;
+            }
+
+            .refresh-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            #fact {
+                font-size: 16px;
+                padding: 15px;
+            }
+
+            .refresh-btn {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Fact of the Day</h1>
+
+    <h1>Fact of the Day 🌟</h1>
+    
     <div id="fact">Loading...</div>
+
+    <button class="refresh-btn" onclick="getFact()">🔄 Refresh Fact</button>
+
+    <footer>© 2025 Fact of the Day | Powered by GitHub Pages</footer>
 
 <script>
     async function getFact() {
         const url = "https://factoidbible.github.io/Fact-of-the-Day/facts.json";  // Use GitHub Pages URL
 
         try {
-            console.log("Fetching from:", url);  // Log the URL for debugging
+            console.log("Fetching from:", url);
 
             const response = await fetch(url);
 
@@ -42,7 +128,7 @@
             }
 
             const data = await response.json();
-            console.log("Fetched data:", data);  // Log the fetched data
+            console.log("Fetched data:", data);
 
             const facts = data.facts;
             const today = new Date();
